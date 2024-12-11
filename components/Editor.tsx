@@ -1,6 +1,6 @@
 'use client';
 // You can use this code in a separate component that's imported in your pages.
-import { AdmonitionDirectiveDescriptor, BoldItalicUnderlineToggles, ChangeCodeMirrorLanguage, codeMirrorPlugin, CodeToggle, ConditionalContents, diffSourcePlugin, DiffSourceToggleWrapper, DirectiveDescriptor, directivesPlugin, frontmatterPlugin, GenericDirectiveEditor, InsertCodeBlock, InsertFrontmatter, InsertImage, InsertSandpack, InsertTable, InsertThematicBreak, KitchenSinkToolbar, linkDialogPlugin, ListsToggle, ShowSandpackInfo, tablePlugin, UndoRedo, type CodeBlockEditorDescriptor, type SandpackConfig } from '@mdxeditor/editor';
+import { AdmonitionDirectiveDescriptor, BoldItalicUnderlineToggles, ChangeCodeMirrorLanguage, codeMirrorPlugin, CodeToggle, ConditionalContents, diffSourcePlugin, DiffSourceToggleWrapper, DirectiveDescriptor, directivesPlugin, frontmatterPlugin, GenericDirectiveEditor, imagePlugin, InsertCodeBlock, InsertFrontmatter, InsertImage, InsertSandpack, InsertTable, InsertThematicBreak, KitchenSinkToolbar, linkDialogPlugin, ListsToggle, ShowSandpackInfo, tablePlugin, UndoRedo, type CodeBlockEditorDescriptor, type SandpackConfig } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
 import React from 'react';
 import { MDXEditor , codeBlockPlugin, headingsPlugin, listsPlugin, 
@@ -10,7 +10,7 @@ import { MDXEditor , codeBlockPlugin, headingsPlugin, listsPlugin,
   sandpackPlugin,
   thematicBreakPlugin,
  }  from '@mdxeditor/editor';
-
+import {imageUpload,imagePreview} from './Upload';
 
 const simpleSandpackConfig: SandpackConfig = {
   defaultPreset: 'react',
@@ -74,7 +74,7 @@ const CalloutDirectiveDescriptor: DirectiveDescriptor = {
 
 const Editor = () => {
     return <MDXEditor      
-      onChange={console.log}
+      // onChange={console.log}
       markdown={`Hello [world](https://virtuoso.dev/)
         | foo | bar |
 | --- | --- |
@@ -126,8 +126,12 @@ Some **content** with _Markdown_ syntax.
           diffMarkdown: 'An older version',
           viewMode: 'rich-text',
           readOnlyDiff: true
-        })
-    
+        }),
+        imagePlugin({
+          imageUploadHandler: imageUpload,
+          imagePreviewHandler: imagePreview,
+          imageAutocompleteSuggestions: ['https://picsum.photos/200/300', 'https://picsum.photos/200'],
+        }),
       ]}
     />
 }
