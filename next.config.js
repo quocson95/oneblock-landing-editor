@@ -9,7 +9,7 @@ const nextConfig = {
     // config.experiments.topLevelAwait = true 
     return config;
   },
-  distDir: "dist"
+  output: "standalone",
 }
 
 module.exports = nextConfig
