@@ -3,13 +3,13 @@
 import { AdmonitionDirectiveDescriptor, BoldItalicUnderlineToggles, ChangeCodeMirrorLanguage, codeMirrorPlugin, CodeToggle, ConditionalContents, diffSourcePlugin, DiffSourceToggleWrapper, DirectiveDescriptor, directivesPlugin, frontmatterPlugin, GenericDirectiveEditor, InsertCodeBlock, InsertFrontmatter, InsertImage, InsertSandpack, InsertTable, InsertThematicBreak, KitchenSinkToolbar, linkDialogPlugin, ListsToggle, ShowSandpackInfo, tablePlugin, UndoRedo, type CodeBlockEditorDescriptor, type SandpackConfig } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
 import React from 'react';
-const { MDXEditor , codeBlockPlugin, headingsPlugin, listsPlugin, 
+import { MDXEditor , codeBlockPlugin, headingsPlugin, listsPlugin, 
   linkPlugin, quotePlugin, markdownShortcutPlugin, 
   useCodeBlockEditorContext,
   toolbarPlugin,
   sandpackPlugin,
   thematicBreakPlugin,
- } = await import('@mdxeditor/editor')
+ }  from '@mdxeditor/editor';
 
 
 const simpleSandpackConfig: SandpackConfig = {
@@ -33,7 +33,7 @@ const simpleToolbarPlug =  toolbarPlugin({
   // toolbarClassName: 'my-classname',
   toolbarContents: () => (
     <>
-    <DiffSourceToggleWrapper>
+    <DiffSourceToggleWrapper >
      <ConditionalContents
           options={[
               { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
@@ -124,7 +124,7 @@ Some **content** with _Markdown_ syntax.
         directivesPlugin({directiveDescriptors: [AdmonitionDirectiveDescriptor]}),
         diffSourcePlugin({
           diffMarkdown: 'An older version',
-          viewMode: 'diff',
+          viewMode: 'rich-text',
           readOnlyDiff: true
         })
     
