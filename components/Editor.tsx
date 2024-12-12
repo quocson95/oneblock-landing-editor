@@ -1,6 +1,6 @@
 'use client';
 // You can use this code in a separate component that's imported in your pages.
-import { AdmonitionDirectiveDescriptor, BoldItalicUnderlineToggles, ChangeCodeMirrorLanguage, codeMirrorPlugin, CodeToggle, ConditionalContents, diffSourcePlugin, DiffSourceToggleWrapper, DirectiveDescriptor, directivesPlugin, frontmatterPlugin, GenericDirectiveEditor, imagePlugin, InsertCodeBlock, InsertFrontmatter, InsertImage, InsertSandpack, InsertTable, InsertThematicBreak, KitchenSinkToolbar, linkDialogPlugin, ListsToggle, ShowSandpackInfo, tablePlugin, UndoRedo, type CodeBlockEditorDescriptor, type SandpackConfig } from '@mdxeditor/editor';
+import { AdmonitionDirectiveDescriptor, BoldItalicUnderlineToggles, ChangeAdmonitionType, ChangeCodeMirrorLanguage, codeMirrorPlugin, CodeToggle, ConditionalContents, diffSourcePlugin, DiffSourceToggleWrapper, DirectiveDescriptor, directivesPlugin, frontmatterPlugin, GenericDirectiveEditor, imagePlugin, InsertCodeBlock, InsertFrontmatter, InsertImage, InsertSandpack, InsertTable, InsertThematicBreak, KitchenSinkToolbar, linkDialogPlugin, ListsToggle, MDXEditorMethods, ShowSandpackInfo, tablePlugin, UndoRedo, type CodeBlockEditorDescriptor, type SandpackConfig } from '@mdxeditor/editor';
 import '@mdxeditor/editor/style.css';
 import React from 'react';
 import { MDXEditor , codeBlockPlugin, headingsPlugin, listsPlugin, 
@@ -33,26 +33,7 @@ const simpleToolbarPlug =  toolbarPlugin({
   // toolbarClassName: 'my-classname',
   toolbarContents: () => (
     <>
-    <DiffSourceToggleWrapper >
-     <ConditionalContents
-          options={[
-              { when: (editor) => editor?.editorType === 'codeblock', contents: () => <ChangeCodeMirrorLanguage /> },
-              { when: (editor) => editor?.editorType === 'sandpack', contents: () => <ShowSandpackInfo /> },
-              { fallback: () => ( <> 
-              <InsertCodeBlock />
-              <InsertSandpack />
-            </>) }
-            ]}
-        />
-      <UndoRedo />
-      <BoldItalicUnderlineToggles />
-      <InsertImage/>
-      <InsertTable/>
-      <InsertThematicBreak/>
-      <ListsToggle/>
-
-      
-        </DiffSourceToggleWrapper>
+        <KitchenSinkToolbar/>
 
     </>
   )
@@ -71,48 +52,26 @@ const CalloutDirectiveDescriptor: DirectiveDescriptor = {
   Editor: GenericDirectiveEditor
 }
 
+type StringProps = {
+  content: string; // Replace 'string' with the actual type of 'content'
+};
 
-const Editor = () => {
-    return <MDXEditor      
+
+const EditorComp: React.FC<StringProps> = ({content}) => {
+  const mdxEditorRef = React.useRef<MDXEditorMethods>(null)
+  mdxEditorRef.current?.setMarkdown(content);
+    return (<div>
+      <MDXEditor     
+      contentEditableClassName="prose"
+       markdown={content} 
+      ref={mdxEditorRef}
       // onChange={console.log}
-      markdown={`Hello [world](https://virtuoso.dev/)
-        | foo | bar |
-| --- | --- |
-| baz | bim |
-
-
----
-slug: hello-world
----
-
-this is a cool markdown
-
-:::note
-foo
-:::
-
-:::tip
-Some **content** with _Markdown_ syntax. Check [this component](https://virtuoso.dev/).
-:::
-
-:::info
-Some **content** with _Markdown_ syntax. 
-:::
-
-:::caution
-Some **content** with _Markdown_ syntax.
-:::
-
-:::danger
-Some **content** with _Markdown_ syntax.
-:::
-
-`}
+      // markdown={content}
       plugins={[
         headingsPlugin(),
         listsPlugin(),
         linkPlugin(),
-        linkDialogPlugin(),
+        // linkDialogPlugin(),
         quotePlugin(),
         thematicBreakPlugin(),
         tablePlugin(),
@@ -132,8 +91,10 @@ Some **content** with _Markdown_ syntax.
           imagePreviewHandler: imagePreview,
           imageAutocompleteSuggestions: ['https://picsum.photos/200/300', 'https://picsum.photos/200'],
         }),
+        frontmatterPlugin(),
       ]}
     />
+    </div>)
 }
 
-export default Editor
+export default EditorComp
