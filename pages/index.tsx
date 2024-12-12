@@ -1,5 +1,6 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import { Mdxs } from "@/components/Mdx";
 
 const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
 
@@ -17,7 +18,7 @@ export default function Home() {
         for more details.
       </p>
       <br />
-      <Editor />
+      <Mdxs/>
     </>
   );
 }
