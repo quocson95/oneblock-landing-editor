@@ -1,10 +1,14 @@
 
-export const imageUpload= (image: File) => {
+export const imageUpload= async (image: File) => {
     // console.log(image);
-    return Promise.resolve('https://picsum.photos/200/300');
+    const res = await fetch("https://api.oneblock.vn/be/mdx/name=" +image.name , {
+        method: "PUT",
+    })
+    const data = await res.json()
+    return data.url
 }
 
 export const imagePreview= (imageSource: string) => {
     // console.log(imageSource);
-    return Promise.resolve('https://picsum.photos/200/300');
+    return Promise.resolve('https://api.oneblock.vn/be/storage/data/?bucket=mdx&name='+imageSource);
 }
