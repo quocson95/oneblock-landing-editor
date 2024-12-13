@@ -40,7 +40,11 @@ const Editor =  () =>{
 
     const saveMdx = async (id: number) => {
       // console.log('save', mdxContent)
-      const res = await fetch('https://api.oneblock.vn/be/mdx/?name='+name + "&id="+id, {method: "put", body: mdxContent,} )
+      let saveName = name;
+      if (!saveName.endsWith(".mdx")) {
+        saveName += ".mdx"
+      }
+      const res = await fetch('https://api.oneblock.vn/be/mdx/?name='+saveName + "&id="+id, {method: "put", body: mdxContent,} )
       console.log(res);
     }
 
