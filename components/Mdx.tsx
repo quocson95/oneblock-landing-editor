@@ -6,6 +6,7 @@ import Button from './Button';
 export function Mdxs() {
   const [mdxs, setData] = useState([])
   let didInit = false;
+  let loading = false;
   useEffect(() => {
     async function fetchPosts() {
       if (didInit) {
@@ -43,10 +44,16 @@ export function Mdxs() {
     // Implement edit functionality here
   };
  
-  if (!mdxs || mdxs.length == 0) return <div>Loading...</div>
+  if (!mdxs) return <div>Loading...</div>
+  if (mdxs.length === 0) return (
+  <>
+    <div>No data</div>
+    <Button><Link href={`/editor`}>Add New</Link></Button>
+  </>)
  
   return (
     <div>
+    <Button><Link href={`/editor`}>Add New</Link></Button>
     <h1>Data List</h1>
     <table id="customers">
       <thead>

@@ -54,10 +54,11 @@ const CalloutDirectiveDescriptor: DirectiveDescriptor = {
 
 type StringProps = {
   content: string; // Replace 'string' with the actual type of 'content'
+  onContentChange: (markdown: string) => void;
 };
 
 
-const EditorComp: React.FC<StringProps> = ({content}) => {
+const EditorComp: React.FC<StringProps> = ({content, onContentChange}) => {
   const mdxEditorRef = React.useRef<MDXEditorMethods>(null)
   mdxEditorRef.current?.setMarkdown(content);
     return (<div>
@@ -65,7 +66,7 @@ const EditorComp: React.FC<StringProps> = ({content}) => {
       contentEditableClassName="prose"
        markdown={content} 
       ref={mdxEditorRef}
-      // onChange={console.log}
+      onChange={onContentChange}
       // markdown={content}
       plugins={[
         headingsPlugin(),
