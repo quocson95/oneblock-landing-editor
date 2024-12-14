@@ -43,6 +43,11 @@ export function Mdxs() {
     alert(`Edit item with ID: ${id}`);
     // Implement edit functionality here
   };
+
+  const  formatDate = (dateString: string) =>  {
+    const date = new Date(dateString);
+    return <div>{date.getFullYear()}/{date.getMonth()}/{date.getDate()} {date.getHours()}:{date.getMinutes()}:{date.getSeconds()}</div>;
+  }
  
   if (!mdxs) return <div>Loading...</div>
   if (mdxs.length === 0) return (
@@ -75,6 +80,7 @@ export function Mdxs() {
               <Button><Link href={`/editor/${item.id}`}>Edit</Link></Button>
             </td>
             {/* <td><button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Delete</button></td> */}
+            {formatDate(item.updated_at)}
           </tr>
         ))}
       </tbody>
