@@ -1,13 +1,12 @@
 import React from "react";
-import dynamic from "next/dynamic";
 import { Mdxs } from "@/components/Mdx";
+import Loading from "@/components/loading";
 
-const Editor = dynamic(() => import("../components/Editor"), { ssr: false });
 
 export default function Home() {
   return (
     <>
-      <p>
+      {/* <p>
         This is a bare-bones unstyled MDX editor without any plugins and no
         toolbar. Check the components/Editor.tsx file for the code.
       </p>
@@ -16,9 +15,10 @@ export default function Home() {
         see{" "}
         <a href="https://mdxeditor.dev/editor/docs/getting-started">the docs</a>{" "}
         for more details.
-      </p>
-      <br />
+      </p> */}
+      <br />      
       <Mdxs/>
+      {/* <Loading></Loading> */}
     </>
   );
 }
